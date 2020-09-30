@@ -1,35 +1,33 @@
 import sys
-
-
+import os
+import linecache
 M = 5 * 10**6
 B = 500
 
-def binarySearch(p, T):
-    if len(T)!= 0:
-        temp = T[len(T)//2]
+def binarySearch(p, Ti, Tf, Ts):
+    temp_i = (Tf-Ti)//2
+    if temp_i >= 0:
+        temp = linecache.getline(Ts, temp_i + 1)
         if p> temp:
-            return binarySearch(p, T[len(T)//2+1:])
+            return binarySearch(p, temp_i + 1, Tf, Ts)
         else:
             if p<temp:
-                return binarySearch(p, T[:len(T)//2])
+                return binarySearch(p, Ti, temp_i - 1, Ts)
             else:
                 return True
-    else:
-        return False
+    return False
 
 
 
 if __name__ == "__main__":
     Pf = open(sys.argv[1])
-    Tf = open(sys.argv[2])
-    T = Tf.readlines()
-    Tf.close()
+    Tf = os.stat(sys.argv[2]).st_size//11 - 1
     output = []
     while(True):
         p = Pf.readline()
         if p =="":
             break
-        if binarySearch(p,T):
+        if binarySearch(p, 1, Tf, sys.argv[2]):
             output.append(p)
     Pf.close()
     Of = open("Output.txt","w")
