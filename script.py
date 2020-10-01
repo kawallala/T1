@@ -5,12 +5,11 @@ import sys
 if __name__ == "__main__":
     P = sys.argv[1]
     T = sys.argv[2]
-    k = sys.argv[3]
-    # times = []
-    for _ in range(int(k)):
-        os.system('python generator.py '+P+' '+T)
-        # start_time = time.time()
-        os.system('python binarySearch.py P.txt T.txt')
-        # end_time = time.time()
-        # times.append(end_time-start_time)
-    # print(times)
+    k_i = int(sys.argv[3])
+    k_f = int(sys.argv[4])
+    k_step = int(sys.argv[5])
+    for k in range(k_i,k_f+k_step,k_step):
+        for k2 in range(k):
+            # Times.write(str(k)+"\n")
+            os.system('python generator.py '+P+' '+T)
+            os.system('python binarySearch.py P.txt T.txt ' + str(k))
