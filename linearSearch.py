@@ -1,11 +1,7 @@
 import sys
 
-
 M = 5 * 10**6
 B = 550
-
-sizeP = 10**4
-sizeT = 10**6
 
 
 def linearSearch(p, T):
@@ -22,20 +18,16 @@ if __name__ == "__main__":
 
     output = []
 
-    #Pf = open("P.txt", 'r')
-    # Tf = open("T.txt", 'r') ?
+    P_array = []
 
-    P_array = [None for i in range(sizeP)]
-    index_P_array = 0
     while True:
         read_chunk = Pf.read(B)
         if not read_chunk:  # se acabó el archivo
             break
         str_numbers = read_chunk.split('\n')
-        for str_number in str_numbers:
-            # si es que haces conversión a enteros
-            P_array[index_P_array] = int(str_number)
-            index_P_array += 1
+        # Quitamos elemento final del split TODO refactor
+        str_numbers.remove("")
+        P_array.extend(list(map(int, str_numbers)))
 
     Pf.close()
 
@@ -45,14 +37,15 @@ if __name__ == "__main__":
             if not read_chunk:   # se acabó el archivo
                 break
             str_numbers = read_chunk.split('\n')
-            str_numbers = map(int, str_numbers)
+            str_numbers.remove("")
+            str_numbers = list(map(int, str_numbers))
 
             if linearSearch(i, str_numbers):
                 output.append(i)
-            else:
-                break
 
     Tf.close()
+
+    output = list(map(str, output))
 
     Of = open("Output.txt", "w")
     for o in output:
