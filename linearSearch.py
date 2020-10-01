@@ -1,4 +1,5 @@
 import sys
+import time
 
 M = 5 * 10**6
 B = 550
@@ -13,6 +14,7 @@ def linearSearch(p, T):
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     Pf = open(sys.argv[1])
     Tf = open(sys.argv[2])
 
@@ -27,7 +29,7 @@ if __name__ == "__main__":
         str_numbers = read_chunk.split('\n')
         # Quitamos elemento final del split TODO refactor
         str_numbers.remove("")
-        P_array.extend(list(map(int, str_numbers)))
+        P_array.extend(str_numbers)
 
     Pf.close()
 
@@ -38,16 +40,19 @@ if __name__ == "__main__":
                 break
             str_numbers = read_chunk.split('\n')
             str_numbers.remove("")
-            str_numbers = list(map(int, str_numbers))
 
             if linearSearch(i, str_numbers):
-                output.append(i)
+                output.append(i+"\n")
 
     Tf.close()
 
-    output = list(map(str, output))
-
-    Of = open("Output.txt", "w")
+    Of = open("Results/Output.txt", "w")
     for o in output:
         Of.write(o)
     Of.close()
+
+    end_time = time.time()
+    print(end_time-start_time)
+    Times = open("Results/TimesLinear.txt", "a")
+    Times.write(str(end_time-start_time) + "\n")
+    Times.close
