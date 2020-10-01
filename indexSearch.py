@@ -1,38 +1,45 @@
 import sys
+import os
+import linecache
 
 
 M = 5 * 10**6
-B = 550
+B = 22
 
-def Bin(i, arr, index):
-    if len(arr) != 0:
-        temp = arr[len(arr)//2]
+
+def Bin(i, arr, index, indexf):
+    temp_i = (indexf+index)//2
+    if (indexf-index)!= 1:
+        temp = arr[temp_i]
         if i > temp:
-            Bin(i, arr[len(arr)//2:len(arr)], index + index//2)
+            Bin(i, arr, temp_i, indexf) #No va temp_i + 1 porque temp_i sigue siendo un candidato
         else:
             if i < temp:
-                Bin(i, arr[0:len(arr)//2 -1], index - index//2)
+                Bin(i, arr, index, temp_i - 1) #Si va el -1 pq temp_i ya no es candidato
             else:
-                return index
+                return temp_i
     else:
-        return index
+        return temp_i
         
 if __name__ == "__main__":
     S = []
     output = []
     Pf = open(sys.argv[1])
-    Tf = open(sys.argv[2])
-    T = Tf.readlines()
-    for i in range(0, len(T) - B, B):
-        S.append(T[i])
-    P = Pf.readlines()
-    for j in range(0, len(P)):
-        print(Bin(P[j], S, len(S)//2))
-        index = Bin(P[j], S, len(S)//2) * B
-        for i in range(index, index+B):
-            if T[index] == P[j]:
-                output.append(P[j])
+    Tf = os.stat(sys.argv[2]).st_size//11  #tamaño del T
+    for i in range(0, Tf, B//11):
+        temp = linecache.getline(sys.argv[2], i + 1) # +1 porque parte en 1
+        S.append(temp)
+
+    while(True):
+        p = Pf.readline()
+        if p =="":
+            break
+        index = Bin(p, S, 0, len(S)-1) * B//11  #ayuda pq temp_i es none
+        for i in range(index, index+B//11):
+            if linecache.getline(sys.argv[1], i + 1) == p:
+                output.append(p)
     Pf.close()
+
     Of = open("Output.txt","w")
     for o in output:
         Of.write(o)
