@@ -3,6 +3,7 @@ import time
 
 M = 5 * 10**6
 B = 550
+IO_count = 0
 
 
 def linearSearch(p, T):
@@ -30,6 +31,7 @@ if __name__ == "__main__":
         # Quitamos elemento final del split TODO refactor
         str_numbers.remove("")
         P_array.extend(str_numbers)
+        IO_count += 1
 
     Pf.close()
 
@@ -40,6 +42,7 @@ if __name__ == "__main__":
                 break
             str_numbers = read_chunk.split('\n')
             str_numbers.remove("")
+            IO_count += 1
 
             if linearSearch(i, str_numbers):
                 output.append(i+"\n")
@@ -49,10 +52,15 @@ if __name__ == "__main__":
     Of = open("Results/Output.txt", "w")
     for o in output:
         Of.write(o)
+        IO_count += 1
     Of.close()
 
     end_time = time.time()
     print(end_time-start_time)
-    Times = open("Results/TimesLinear.txt", "a")
+    Times = open("Results/TimesLinear.txt", "w")
     Times.write(str(end_time-start_time) + "\n")
     Times.close
+
+    IO = open("Results/IOLinear.txt", "w")
+    IO.write(str(IO_count) + "\n")
+    IO.close
