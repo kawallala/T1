@@ -4,11 +4,14 @@ import linecache
 import time
 M = 5 * 10**6
 B = 550
+C = 0
 
 def binarySearch(p, Ti, Tf, Ts):
+    global C
     temp_i = (Tf+Ti)//2
     if Tf>Ti:
         temp = linecache.getline(Ts, temp_i + 1)
+        C += 1
         if p> temp:
             return binarySearch(p, temp_i+1, Tf, Ts)
         else:
@@ -28,6 +31,7 @@ if __name__ == "__main__":
     output = []
     while(True):
         p = Pf.readline()
+        C += 1
         if p =="":
             break
         if binarySearch(p, 0, Tf, sys.argv[2]):
@@ -43,4 +47,6 @@ if __name__ == "__main__":
         Times = open("Results/Times"+r+".txt", 'a')
         Times.write(str(end_time-start_time) + "\n")
     else:
-        print(end_time-start_time)
+        Times = open("Results/TimeAndCountBinary.txt", 'w')
+        Times.write(str(end_time-start_time) + ' ' + str(C))
+    Times.close()

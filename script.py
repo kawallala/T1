@@ -13,3 +13,4 @@ if __name__ == "__main__":
             # Times.write(str(k)+"\n")
             os.system('python generator.py '+P+' '+T)
             os.system('python binarySearch.py P.txt T.txt ' + str(k))
+    os.system('python ')

@@ -4,7 +4,7 @@ import linecache
 
 
 M = 5 * 10**6
-B = 22
+B = 550
 
 
 def Bin(i, arr, index, indexf):
