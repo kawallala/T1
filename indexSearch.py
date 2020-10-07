@@ -1,10 +1,12 @@
 import sys
 import os
 import linecache
+import time
 
 
 M = 5 * 10**6
 B = 550
+IO_count = 0
 
 
 def Bin(i, arr, index, indexf):
@@ -22,6 +24,7 @@ def Bin(i, arr, index, indexf):
         return index
         
 if __name__ == "__main__":
+    start_time = time.time()
     S = []
     output = []
     Pf = open(sys.argv[1])
@@ -29,18 +32,32 @@ if __name__ == "__main__":
     for i in range(0, Tf, B//11):
         temp = linecache.getline(sys.argv[2], i + 1) # +1 porque parte en 1
         S.append(temp)
+        IO_count += 1
 
     while(True):
         p = Pf.readline()
+        IO_count += 1
         if p =="":
             break
         index = Bin(p, S, 0, len(S)-1) #ayuda pq temp_i es none
         for i in range(index*B//11, (index+1)*B//11):
             if linecache.getline(sys.argv[2], i + 1) == p:
                 output.append(p)
+            IO_count += 1
     Pf.close()
 
     Of = open("Output.txt","w")
     for o in output:
         Of.write(o)
+        IO_count += 1
     Of.close()
+
+    end_time = time.time()
+    print(end_time-start_time)
+    Times = open("Results/TimesIndex.txt", "w")
+    Times.write(str(end_time-start_time) + "\n")
+    Times.close
+
+    IO = open("Results/IOIndex.txt", "w")
+    IO.write(str(IO_count) + "\n")
+    IO.close
