@@ -56,11 +56,11 @@ if __name__ == "__main__":
     Of.close()
 
     end_time = time.time()
-    print(end_time-start_time)
-    Times = open("Results/TimesLinear.txt", "w")
-    Times.write(str(end_time-start_time) + "\n")
-    Times.close
 
-    IO = open("Results/IOLinear.txt", "w")
-    IO.write(str(IO_count) + "\n")
-    IO.close
+    if len(sys.argv) == 4:
+        Times = open("Results/TimesAndCountLinear" + sys.argv[3] + ".txt", 'a')
+        Times.write(str(end_time-start_time) + ' ' + str(IO_count) + "\n")
+    else:
+        Times = open("Results/TimeAndCountLinear.txt", 'w')
+        Times.write(str(end_time-start_time) + ' ' + str(IO_count))
+    Times.close()
