@@ -5,9 +5,17 @@ import time
 
 
 M = 5 * 10**6
-B = 550
-IO_count = 0
+B = 20
+C = 0   #El contador de IOs
 
+def read_block(file, position = None):
+    global C
+    file.seek(0)
+    if position:
+        file.seek(position)
+    block = file.read(B)
+    C += 1
+    return block
 
 def Bin(i, arr, index, indexf):
     if (indexf-index) > 0:
@@ -28,28 +36,33 @@ if __name__ == "__main__":
     S = []
     output = []
     Pf = open(sys.argv[1])
-    Tf = os.stat(sys.argv[2]).st_size//11  #tamaño del T
-    for i in range(0, Tf, B//11):
-        temp = linecache.getline(sys.argv[2], i + 1) # +1 porque parte en 1
-        S.append(temp)
-        IO_count += 1
+    Tf = open(sys.argv[2])
+    size_file = os.path.getsize(sys.argv[2])
+    number_blocks = max(size_file // (B+B//10), 1)
+    for i in range(number_blocks):
+        block = read_block(Tf, i*(B+B//10))
+        S.append(block.split('\n')[0])
 
+    current_block = 0
     while(True):
-        p = Pf.readline()
-        IO_count += 1
-        if p =="":
+        blockP = read_block(Pf, current_block)
+        current_block += B+(B//10)
+        if not blockP: # se acabó el archivo
             break
-        index = Bin(p, S, 0, len(S)-1) #ayuda pq temp_i es none
-        for i in range(index*B//11, (index+1)*B//11):
-            if linecache.getline(sys.argv[2], i + 1) == p:
+        str_numbers = blockP.split('\n')
+        str_numbers.pop()
+
+        for p in str_numbers:
+            index = Bin(p, S, 0, len(S)-1)
+            blockT = read_block(Tf,index*(B+B//10)) 
+            if p in blockT.split('\n'):
                 output.append(p)
-            IO_count += 1
+                output.append('\n')
     Pf.close()
 
     Of = open("Output.txt","w")
     for o in output:
         Of.write(o)
-        IO_count += 1
     Of.close()
 
     end_time = time.time()
@@ -59,5 +72,5 @@ if __name__ == "__main__":
     Times.close
 
     IO = open("Results/IOIndex.txt", "w")
-    IO.write(str(IO_count) + "\n")
+    IO.write(str(C) + "\n")
     IO.close
