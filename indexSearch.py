@@ -5,7 +5,7 @@ import time
 
 
 M = 5 * 10**6
-B = 20
+B = 500
 C = 0   #El contador de IOs
 
 def read_block(file, position = None):
@@ -69,11 +69,11 @@ if __name__ == "__main__":
     Of.close()
 
     end_time = time.time()
-    print(end_time-start_time)
-    Times = open("Results/TimesIndex.txt", "w")
-    Times.write(str(end_time-start_time) + "\n")
-    Times.close
-
-    IO = open("Results/IOIndex.txt", "w")
-    IO.write(str(C) + "\n")
-    IO.close
+    if len(sys.argv) == 4:
+        r = sys.argv[3]
+        Times = open("Results/TimesAndCountIndex" + r + ".txt", 'a')
+        Times.write(str(end_time-start_time) + ' ' + str(C) + "\n")
+    else:
+        Times = open("Results/TimeAndCountIndex.txt", 'w')
+        Times.write(str(end_time-start_time) + ' ' + str(C))
+    Times.close()
