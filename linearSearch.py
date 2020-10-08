@@ -35,21 +35,21 @@ if __name__ == "__main__":
 
     Pf.close()
 
-    for i in P_array:
-        while True:
-            read_chunk = Tf.read(B)
-            if not read_chunk:   # se acabó el archivo
-                break
-            str_numbers = read_chunk.split('\n')
-            str_numbers.remove("")
-            IO_count += 1
+    while True:
+        read_chunk = Tf.read(B)
+        if not read_chunk:   # se acabó el archivo
+            break
+        str_numbers = read_chunk.split('\n')
+        str_numbers.remove("")
+        IO_count += 1
 
-            if linearSearch(i, str_numbers):
+        for i in str_numbers:
+            if linearSearch(i, P_array):
                 output.append(i+"\n")
 
     Tf.close()
 
-    Of = open("Results/Output.txt", "w")
+    Of = open("Results/Output.txt", "a")
     for o in output:
         Of.write(o)
         IO_count += 1
