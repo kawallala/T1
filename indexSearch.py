@@ -43,6 +43,7 @@ if __name__ == "__main__":
         block = read_block(Tf, i*(B+B//10))
         S.append(block.split('\n')[0])
 
+    P_array = []
     current_block = 0
     while(True):
         blockP = read_block(Pf, current_block)
@@ -51,14 +52,16 @@ if __name__ == "__main__":
             break
         str_numbers = blockP.split('\n')
         str_numbers.pop()
+        P_array.extend(str_numbers)
+   
+    Pf.close()
 
-        for p in str_numbers:
+    for p in P_array:
             index = Bin(p, S, 0, len(S)-1)
             blockT = read_block(Tf,index*(B+B//10)) 
             if p in blockT.split('\n'):
                 output.append(p)
                 output.append('\n')
-    Pf.close()
 
     Of = open("Output.txt","w")
     for o in output:
