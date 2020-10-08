@@ -16,9 +16,8 @@ def read_block(file, position = None):
     return block
 
 
-def binarySearch(filename, str_element):
+def binarySearch(file, filename, str_element):
     size_file = os.path.getsize(filename)
-    file = open(filename)
     number_blocks = max(size_file // (B+ B//10), 1)
     l = 0
     r = number_blocks -1
@@ -46,19 +45,18 @@ def binarySearch(filename, str_element):
 if __name__ == "__main__":
     start_time = time.time()
     Pf = open(sys.argv[1])
-    Tf = os.stat(sys.argv[2]).st_size//11
+    file = open(sys.argv[2])
     output = []
     current_block = 0
     while(True):
         blockP = read_block(Pf,current_block)
-        C += 1
         if not blockP:
             break
         current_block += B + B//10
         str_numbers = blockP.split('\n')
         str_numbers.pop()
         for p in str_numbers: 
-            if binarySearch(sys.argv[2], p):
+            if binarySearch(file, sys.argv[2], p):
                 output.append(p)
                 output.append('\n')
     Pf.close()
@@ -67,12 +65,11 @@ if __name__ == "__main__":
         Of.write(o)
     Of.close()
     end_time = time.time()
-    if len(sys.argv) == 5:
+    if len(sys.argv) == 4:
         r = sys.argv[3]
-        i = sys.argv[4]
-        Times = open("Results/Times"+r+"_"+i+".txt", 'a')
-        Times.write(str(end_time-start_time) + "\n")
+        Times = open("Results/TimesAndCountBinary" + r + ".txt", 'a')
+        Times.write(str(end_time-start_time) + ' ' + str(C) + "\n")
     else:
-        Times = open("Results/TimeAndCountBinary.txt", 'w')
+        Times = open("Results/TimeAndCountBinary" + sys.argv[3] + ".txt", 'a')
         Times.write(str(end_time-start_time) + ' ' + str(C))
     Times.close()
