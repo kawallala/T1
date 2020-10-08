@@ -18,7 +18,7 @@ def read_block(file, position = None):
 def binarySearch(filename, str_element):
     size_file = os.path.getsize(filename)
     file = open(filename)
-    number_blocks = size_file // B
+    number_blocks = max(size_file // B, 1)
     l = 0
     r = number_blocks -1
     while l != r:
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     Tf = os.stat(sys.argv[2]).st_size//11
     output = []
     while(True):
-        p = Pf.readline()
+        p = Pf.readline().split('\n')[0]
         C += 1
         if p =="":
             break
