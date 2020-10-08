@@ -6,24 +6,42 @@ M = 5 * 10**6
 B = 550
 C = 0
 
-def binarySearch(p, Ti, Tf, Ts):
+def read_block(file, position = None):
     global C
-    temp_i = (Tf+Ti)//2
-    if Tf>Ti:
-        temp = linecache.getline(Ts, temp_i + 1)
-        C += 1
-        if p> temp:
-            return binarySearch(p, temp_i+1, Tf, Ts)
+    if position:
+        file.seek(position)
+    block = file.read(B)
+    C += 1
+    return block
+
+
+def binarySearch(filename, str_element):
+    size_file = os.path.getsize(filename)
+    file = open(filename)
+    number_blocks = size_file // B
+    l = 0
+    r = number_blocks -1
+    while l != r:
+        m = (l+r) // 2
+        position_to_read = m*B
+        block = read_block(file, position_to_read)
+        str_numbers = block.split('\n')
+        str_numbers.pop()
+        if str_element in str_numbers:
+            return True
+        first_block = str_numbers[0]
+        last_block = str_numbers[-1]
+        if last_block >= str_element >= first_block :
+            return False
+        if str_element < first_block:
+            r = m - 1
         else:
-            if p<temp:
-                return binarySearch(p, Ti, temp_i - 1, Ts)
-            else:
-                return True
-    else:
-        return False
+            l = m + 1
+    position_to_read = l*B
+    block = read_block(file, position_to_read)
+    return str_element in block.split('\n')
 
 
-        
 if __name__ == "__main__":
     start_time = time.time()
     Pf = open(sys.argv[1])
@@ -34,7 +52,7 @@ if __name__ == "__main__":
         C += 1
         if p =="":
             break
-        if binarySearch(p, 0, Tf, sys.argv[2]):
+        if binarySearch(sys.argv[2], p):
             output.append(p)
     Pf.close()
     Of = open("Output.txt","w")
