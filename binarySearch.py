@@ -23,7 +23,7 @@ def binarySearch(p, Ti, Tf, Ts):
         return False
 
 
-
+        
 if __name__ == "__main__":
     start_time = time.time()
     Pf = open(sys.argv[1])
@@ -42,9 +42,10 @@ if __name__ == "__main__":
         Of.write(o)
     Of.close()
     end_time = time.time()
-    if len(sys.argv) == 4:
+    if len(sys.argv) == 5:
         r = sys.argv[3]
-        Times = open("Results/Times"+r+".txt", 'a')
+        i = sys.argv[4]
+        Times = open("Results/Times"+r+"_"+i+".txt", 'a')
         Times.write(str(end_time-start_time) + "\n")
     else:
         Times = open("Results/TimeAndCountBinary.txt", 'w')

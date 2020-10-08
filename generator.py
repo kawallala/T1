@@ -13,6 +13,7 @@ def gen_N(size):
     for t in T:
         f.write(str(t).zfill(9)+"\n")
 if __name__ == "__main__":
+    print("main")
     P = sys.argv[1]
     T = sys.argv[2]
     gen_P(int(P))
