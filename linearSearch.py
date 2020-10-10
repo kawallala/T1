@@ -51,8 +51,8 @@ if __name__ == "__main__":
 
     output = "".join(output)
     Of = open("Results/Output.txt", "a")
-    number_blocks = len(output) // B
-    for o in range(number_blocks):
+    number_blocks = max(len(output) // B,1)
+    for i in range(number_blocks):
         Of.write(output[i*B:(i+1)*B])
         IO_count += 1
     Of.close()

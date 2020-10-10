@@ -60,12 +60,14 @@ if __name__ == "__main__":
             index = Bin(p, S, 0, len(S)-1)
             blockT = read_block(Tf,index*(B+B//10)) 
             if p in blockT.split('\n'):
-                output.append(p)
-                output.append('\n')
+                output.append(p+ '\n')
 
-    Of = open("Output.txt","w")
-    for o in output:
-        Of.write(o)
+    output = "".join(output)
+    Of = open("Results/Output.txt", "a")
+    number_blocks = max(len(output) // B,1)
+    for i in range(number_blocks):
+        Of.write(output[i*B:(i+1)*B])
+        C += 1
     Of.close()
 
     end_time = time.time()

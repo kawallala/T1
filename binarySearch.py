@@ -60,9 +60,15 @@ if __name__ == "__main__":
             if binarySearch(file, T_name, size_file, p):
                 output.append(''.join([p,'\n']))
     Pf.close()
-    Of = open("Output.txt","w")
-    Of.writelines(output)
+
+    output = "".join(output)
+    Of = open("Results/Output.txt", "a")
+    number_blocks = max(len(output) // B,1)
+    for i in range(number_blocks):
+        Of.write(output[i*B:(i+1)*B])
+        C += 1
     Of.close()
+
     end_time = time.time()
     if len(sys.argv) == 4:
         r = sys.argv[3]
