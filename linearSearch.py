@@ -49,9 +49,11 @@ if __name__ == "__main__":
 
     Tf.close()
 
+    output = "".join(output)
     Of = open("Results/Output.txt", "a")
-    for o in output:
-        Of.write(o)
+    number_blocks = len(output) // B
+    for o in range(number_blocks):
+        Of.write(output[i*B:(i+1)*B])
         IO_count += 1
     Of.close()
 
