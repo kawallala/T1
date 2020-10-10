@@ -3,7 +3,7 @@ import os
 import linecache
 import time
 M = 5 * 10**6
-B = 10
+B = 500
 C = 0
 
 def read_block(file, position = None):
@@ -16,8 +16,7 @@ def read_block(file, position = None):
     return block
 
 
-def binarySearch(file, filename, str_element):
-    size_file = os.path.getsize(filename)
+def binarySearch(file, filename, size_file, str_element):
     number_blocks = max(size_file // (B+ B//10), 1)
     l = 0
     r = number_blocks -1
@@ -45,7 +44,9 @@ def binarySearch(file, filename, str_element):
 if __name__ == "__main__":
     start_time = time.time()
     Pf = open(sys.argv[1])
-    file = open(sys.argv[2])
+    T_name = sys.argv[2]
+    file = open(T_name)
+    size_file = os.path.getsize(T_name)
     output = []
     current_block = 0
     while(True):
@@ -56,13 +57,11 @@ if __name__ == "__main__":
         str_numbers = blockP.split('\n')
         str_numbers.pop()
         for p in str_numbers: 
-            if binarySearch(file, sys.argv[2], p):
-                output.append(p)
-                output.append('\n')
+            if binarySearch(file, T_name, size_file, p):
+                output.append(''.join([p,'\n']))
     Pf.close()
     Of = open("Output.txt","w")
-    for o in output:
-        Of.write(o)
+    Of.writelines(output)
     Of.close()
     end_time = time.time()
     if len(sys.argv) == 4:
