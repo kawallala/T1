@@ -2,7 +2,7 @@ import sys
 import time
 
 M = 5 * 10**6
-B = 550
+B = 500
 IO_count = 0
 
 
