@@ -22,7 +22,8 @@ if __name__ == "__main__":
             IOs_all[j][i] = np.mean(np.array(IOs))
             Times_all_std[j][i] = np.std(np.array(Times))
             IOs_all_std[j][i] = np.std(np.array(IOs))
-    names = ['|T|/4', '|T|/2', '|T|/6']
+    
+    names = ['|T|/2','|T|/4', '|T|/6']
     # plt.title('Variacion tiempo de ejecucion')
     # plt.scatter(names, Times_all[:][0], label= 'Binaria')
     # plt.scatter(names, Times_all[:][1], label = 'Indexada')
@@ -32,6 +33,8 @@ if __name__ == "__main__":
     # plt.legend()
     # plt.yscale('log')
     # plt.savefig("Tiempo_ejecucion")
+
+
     plt.title('Variacion operaciones IO')
     plt.scatter(names, IOs_all[:][0], label= 'Binaria')
     plt.scatter(names, IOs_all[:][1],  label = 'Indexada')
