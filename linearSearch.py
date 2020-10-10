@@ -63,6 +63,6 @@ if __name__ == "__main__":
         Times = open("Results/TimesAndCountLinear" + sys.argv[3] + ".txt", 'a')
         Times.write(str(end_time-start_time) + ' ' + str(IO_count) + "\n")
     else:
-        Times = open("Results/TimeAndCountLinear.txt", 'w')
+        Times = open("Results/TimeAndCountLinear.txt", 'a')
         Times.write(str(end_time-start_time) + ' ' + str(IO_count))
     Times.close()
