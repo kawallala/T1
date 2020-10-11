@@ -4,14 +4,14 @@ import time
 M = 5 * 10**6
 B = 500
 IO_count = 0
-
+Comp = 0
 
 def linearSearch(p, T):
+    global Comp
     for i in T:
+        Comp += 1
         if p == i:
             return True
-        else:
-            return False
 
 
 if __name__ == "__main__":
@@ -29,7 +29,7 @@ if __name__ == "__main__":
             break
         str_numbers = read_chunk.split('\n')
         # Quitamos elemento final del split TODO refactor
-        str_numbers.remove("")
+        str_numbers.pop()
         P_array.extend(str_numbers)
         IO_count += 1
 
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         if not read_chunk:   # se acabó el archivo
             break
         str_numbers = read_chunk.split('\n')
-        str_numbers.remove("")
+        str_numbers.pop()
         IO_count += 1
 
         for i in str_numbers:

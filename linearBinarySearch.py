@@ -4,14 +4,17 @@ import time
 M = 5 * 10**6
 B = 500
 IO_count = 0
+Comp = 0
 
 
 def binarySearch(p, str_numbers):
+    global Comp
     l = 0
     r = len(str_numbers) - 1
     while l<r:
         m = (l+r)//2 + 1
         c = str_numbers[m]
+        Comp +=1
         if p < c:
             r = m - 1
         elif p > c:
@@ -55,9 +58,11 @@ if __name__ == "__main__":
 
     Tf.close()
 
-    Of = open("Results/Output.txt", "w")
-    for o in output:
-        Of.write(o)
+    output = "".join(output)
+    Of = open("Results/Output.txt", "a")
+    number_blocks = max(len(output) // B,1)
+    for i in range(number_blocks):
+        Of.write(output[i*B:(i+1)*B])
         IO_count += 1
     Of.close()
 

@@ -14,9 +14,9 @@ def merge(str_numbers, P_array):
         if str_numbers[i]<P_array[j]:
             i += 1
         elif str_numbers[i]>P_array[j]:
-            j+=1
+            j += 1
         else:
-            merged_list.append(str_numbers[i] + '\n')
+            merged_list.append(''.join([str_numbers[i], '\n']))
             i+=1
             j+=1
     return merged_list
@@ -53,9 +53,11 @@ if __name__ == "__main__":
 
     Tf.close()
 
-    Of = open("Results/OutputMerge.txt", "w")
-    for o in output:
-        Of.write(o)
+    output = "".join(output)
+    Of = open("Results/Output.txt", "a")
+    number_blocks = max(len(output) // B,1)
+    for i in range(number_blocks):
+        Of.write(output[i*B:(i+1)*B])
         IO_count += 1
     Of.close()
 

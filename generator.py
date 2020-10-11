@@ -3,7 +3,7 @@ import random
 def gen_P(size) :
     f = open("P.txt", "w")
     for _ in range(size):
-        f.write(str(random.randrange(1,10**9)).zfill(9)+ "\n")
+        f.write(str(random.randrange(1,10**9)).zfill(9)+"\n")
 def gen_N(size):
     T = []
     for _ in range(size):

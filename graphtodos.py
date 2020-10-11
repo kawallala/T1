@@ -24,24 +24,24 @@ if __name__ == "__main__":
             IOs_all_std[j][i] = np.std(np.array(IOs))
     
     names = ['|T|/2','|T|/4', '|T|/6']
-    # plt.title('Variacion tiempo de ejecucion')
-    # plt.scatter(names, Times_all[:][0], label= 'Binaria')
-    # plt.scatter(names, Times_all[:][1], label = 'Indexada')
-    # plt.scatter(names, Times_all[:][2], label='Lineal')
-    # plt.xlabel("Valor de |P|")
-    # plt.ylabel("Tiempo de ejecución")
-    # plt.legend()
-    # plt.yscale('log')
-    # plt.savefig("Tiempo_ejecucion")
-
-
-    plt.title('Variacion operaciones IO')
-    plt.scatter(names, IOs_all[:][0], label= 'Binaria')
-    plt.scatter(names, IOs_all[:][1],  label = 'Indexada')
-    plt.scatter(names, IOs_all[:][2],  label='Lineal')
+    plt.title('Variacion tiempo de ejecucion')
+    plt.scatter(names, Times_all[:][0], label= 'Binaria')
+    plt.scatter(names, Times_all[:][1], label = 'Indexada')
+    plt.scatter(names, Times_all[:][2], label='Lineal')
     plt.xlabel("Valor de |P|")
-    plt.ylabel("Operaciones IO")
-    plt.yscale('log')
+    plt.ylabel("Tiempo de ejecución")
     plt.legend()
-    plt.savefig("Operaciones_IO")
+    # plt.yscale('log')
+    plt.savefig("Tiempo_ejecucion2")
+
+
+    # plt.title('Variacion operaciones IO')
+    # plt.scatter(names, IOs_all[:][0], label= 'Binaria')
+    # plt.scatter(names, IOs_all[:][1],  label = 'Indexada')
+    # plt.scatter(names, IOs_all[:][2],  label='Lineal')
+    # plt.xlabel("Valor de |P|")
+    # plt.ylabel("Operaciones IO")
+    # plt.yscale('log')
+    # plt.legend()
+    # plt.savefig("Operaciones_IO")
 
