@@ -24,10 +24,10 @@ if __name__ == "__main__":
             IOs_all_std[j][i] = np.std(np.array(IOs))
     
     names = ['|T|/2','|T|/4', '|T|/6']
-    plt.title('Variacion tiempo de ejecucion')
-    plt.scatter(names, Times_all[:][0], label= 'Linear')
-    plt.scatter(names, Times_all[:][1], label = 'Lineal + Binaria')
-    plt.scatter(names, Times_all[:][2], label='Lineal + Merge')
+    plt.title('Búsqueda Lineal con Merge demora menos')
+    plt.plot(names, Times_all[:][0], label= 'Linear', marker = 'o')
+    plt.plot(names, Times_all[:][1], label = 'Lineal + Binaria', marker = 'o')
+    plt.plot(names, Times_all[:][2], label='Lineal + Merge', marker = 'o')
     plt.xlabel("Valor de |P|")
     plt.ylabel("Tiempo de ejecución")
     plt.legend()
